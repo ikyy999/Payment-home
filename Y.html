@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit Investasi Marketo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #6a11cb;
+            margin: 0;
+            animation: slideIn 0.8s ease-in-out;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        .announcement-bar {
+            background: rgba(106, 17, 203, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            color: #6a11cb;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: slideIn 1.4s ease-in-out;
+        }
+
+        .form-container input {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-container input:focus {
+            border-color: #6a11cb;
+            outline: none;
+        }
+
+        #low-deposit-message {
+            display: none;
+            color: #ff4d4d;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .button-group button {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button-group button.primary {
+            background: #6a11cb;
+            color: white;
+        }
+
+        .button-group button.primary:hover {
+            background: #4d0d9c;
+            transform: translateY(-2px);
+        }
+
+        .button-group button.secondary {
+            background: rgba(106, 17, 203, 0.1);
+            color: #6a11cb;
+        }
+
+        .button-group button.secondary:hover {
+            background: rgba(106, 17, 203, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .highlight-info {
+            background: rgba(106, 17, 203, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            animation: fadeIn 1.6s ease-in-out;
+        }
+
+        .qr-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .qr-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .qr-content img {
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .qr-content p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .qr-content button {
+            padding: 12px 24px;
+            background: #6a11cb;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .qr-content button:hover {
+            background: #4d0d9c;
+        }
+
+        .illustration {
+            margin-top: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .illustration img {
+            width: 320px;
+        }
+
+        .warning-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffeb3b;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1001;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .warning-popup img {
+            width: 50px;
+            margin-bottom: 10px;
+        }
+
+        .warning-popup p {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Marketo Website </h1>
+            <p>Mulai investasi Anda dengan deposit minimal Rp.200.000</p>
+        </div>
+
+        <div class="announcement-bar">
+            📢 Pengumuman: Sistem deposit dan penarikan telah diperbaiki. Transaksi kini berjalan lancar.
+        </div>
+
+        <div class="form-container">
+            <input type="text" id="deposit-amount" placeholder="Nominal Deposit" oninput="formatCurrency()">
+            <input type="text" id="sender-name" placeholder="Atas Nama Pengirim">
+            <div id="low-deposit-message">Minimum deposit Rp.200.000</div>
+        </div>
+
+        <div class="button-group">
+            <button class="primary" onclick="showQR()">Lanjutkan</button>
+            <button class="secondary" onclick="checkPaymentStatus()">Cek Status</button>
+        </div>
+
+        <div class="highlight-info">
+            Harap selesaikan pembayaran deposit Anda sesegera mungkin untuk memulai investasi.
+        </div>
+
+        <div class="illustration">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfPulX85MdBMijrnjKXxf4M_4sNl3mx43i0oXRiPSpUPInyNbR4_ZlFClE&s=10" alt="Ilustrasi Investasi">
+        </div>
+
+        <div id="status-message" class="highlight-info">
+            Deposit Dan Penarikan Uang Terbuka Dan Dapat Di Akses Seluruh Pengguna 24 Jam.
+        </div>
+    </div>
+
+    <div class="qr-overlay" id="qr-overlay">
+        <div class="qr-content">
+            <img src="https://telegra.ph/file/a8c6f59b3aa1d51ba2a53.png" alt="QR Tujuan">
+            <p>Silakan lakukan pembayaran ke QR code di atas.</p>
+            <button onclick="backToForm()">Kembali</button>
+        </div>
+    </div>
+
+    <div class="warning-popup" id="warning-popup">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSqNGvZ98wSOxTGcvH85hJ2UcEzOK9onv1mg&usqp=CAU" alt="Tanda Seru">
+        <p>Pembayaran belum diselesaikan!</p>
+    </div>
+
+    <script>
+        function formatCurrency() {
+            let amount = document.getElementById('deposit-amount').value;
+            amount = amount.replace(/\D/g, "");
+            let formattedAmount = amount.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            document.getElementById('deposit-amount').value = formattedAmount;
+
+            if (parseInt(amount) < 200000) {
+                document.getElementById('low-deposit-message').style.display = 'block';
+            } else {
+                document.getElementById('low-deposit-message').style.display = 'none';
+            }
+        }
+
+        function showQR() {
+            let depositAmount = document.getElementById('deposit-amount').value.replace(/\./g, "");
+            if (parseInt(depositAmount) >= 200000) {
+                document.getElementById('qr-overlay').style.display = 'flex';
+            } else {
+                alert('Silakan masukkan nominal deposit minimal Rp.200.000');
+            }
+        }
+
+        function backToForm() {
+            document.getElementById('qr-overlay').style.display = 'none';
+        }
+
+        function checkPaymentStatus() {
+            const warningPopup = document.getElementById('warning-popup');
+            warningPopup.style.display = 'block';
+            setTimeout(() => {
+                warningPopup.style.display = 'none';
+            }, 4000); // Popup akan hilang setelah 4 detik
+        }
+    </script>
+
+</body>
+</html>
